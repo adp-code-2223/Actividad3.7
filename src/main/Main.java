@@ -1,11 +1,10 @@
 package main;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,16 +16,15 @@ import util.SessionFactoryUtil;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		// createDepartamento();
-		//deleteDepartamento(46);
-		
-		
+		// deleteDepartamento(46);
+
 //		updateDepartamento(45);
 //		findDepartamento(45);
-		
-		createEmpleado(0);
+
+		createEmpleado(45);
 
 	}
 
@@ -123,7 +121,7 @@ public class Main {
 		}
 
 	}
-	
+
 	private static void updateDepartamento(int id) {
 
 		SessionFactory factoria = SessionFactoryUtil.getSessionFactory();
@@ -136,9 +134,9 @@ public class Main {
 
 			dept.setDname("Recursos Humanos 2");
 			dept.setLoc("Oviedo");
-			
+
 			sesion.saveOrUpdate(dept);
-			
+
 			tx.commit();
 		} catch (Exception ex) {
 			System.err.println("Ha habido una exception " + ex);
@@ -149,16 +147,47 @@ public class Main {
 		}
 
 	}
-	
-	private static void createEmpleado(int deptid)
-	{
-		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Date date = format.parse("1985-10-26");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	private static void createEmpleado(int id) throws Exception {
+
+		SessionFactory factoria = SessionFactoryUtil.getSessionFactory();
+
+		Transaction tx = null;
+		try (Session sesion = factoria.openSession();) {
+
+			tx = sesion.beginTransaction();
+			Departamento dept = sesion.get(Departamento.class, id);
+
+			if (dept == null) {
+				System.out.println("No existe dept con id: " + id);
+			} else {
+
+				Emp empleado = new Emp();
+				empleado.setEname("Juan Ramón");
+				empleado.setSal(new BigDecimal(40000));
+				empleado.setJob("Comercial");
+				empleado.setComm(new BigDecimal(0.15f));
+
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = format.parse("1985-10-26");
+				empleado.setHiredate(date);
+
+				empleado.setDept(dept);
+				
+				int empId = (int)sesion.save(empleado);
+				System.out.println("Se ha creado el empleado con id: "+ empId);
+				
+				tx.commit();
+			}
+		}
+
+		catch ( Exception ex) {
+			System.err.println("Ha habido una exception " + ex.getMessage());
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw ex;
 		}
 	}
+
 }
