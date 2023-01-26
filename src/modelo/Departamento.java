@@ -59,4 +59,11 @@ public class Departamento implements java.io.Serializable {
 		this.emps = emps;
 	}
 
+	@Override
+	public String toString() {
+		return "Departamento [deptno=" + deptno + ", dname=" + dname + ", loc=" + loc + "]";
+	}
+	
+	
+
 }
