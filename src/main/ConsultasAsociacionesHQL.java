@@ -20,8 +20,8 @@ public class ConsultasAsociacionesHQL {
 					+ "no tengan empleados ordenados por nombre -----------");
 			List<String> deptList = session
 					.createQuery(" select d.dname FROM Departamento d where size (d.emps) =0 order by d.dname  ")
-					.createQuery(" select d.dname FROM Departamento d where "
-							+ "d.emps is empty order by d.dname  ")
+//					.createQuery(" select d.dname FROM Departamento d where "
+//							+ "d.emps is empty order by d.dname  ")
 					// .createQuery(" select d.dname FROM Departamento d left join d.emps e "
 							// + "where e =null "
 							// + "order by d.dname  ")
