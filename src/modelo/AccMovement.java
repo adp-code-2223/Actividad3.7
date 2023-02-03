@@ -14,17 +14,18 @@ public class AccMovement implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -7097818257356487403L;
 	private Integer accountMovId;
-	private Account account;
-	private int accountOriginId;
+	private Account accountOrigen;
+	private Account accountDestino;
 	private BigDecimal amount;
 	private Date datetime;
 
 	public AccMovement() {
 	}
 
-	public AccMovement(Account account, int accountOriginId, BigDecimal amount, Date datetime) {
-		this.account = account;
-		this.accountOriginId = accountOriginId;
+	public AccMovement(Account accountOrigen, Account accountDestino, BigDecimal amount, Date datetime) {
+		this.accountOrigen = accountOrigen;
+		this.accountDestino = accountDestino;
+		
 		this.amount = amount;
 		this.datetime = datetime;
 	}
@@ -37,21 +38,8 @@ public class AccMovement implements java.io.Serializable {
 		this.accountMovId = accountMovId;
 	}
 
-	public Account getAccount() {
-		return this.account;
-	}
 
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 
-	public int getAccountOriginId() {
-		return this.accountOriginId;
-	}
-
-	public void setAccountOriginId(int accountOriginId) {
-		this.accountOriginId = accountOriginId;
-	}
 
 	public BigDecimal getAmount() {
 		return this.amount;
@@ -68,5 +56,24 @@ public class AccMovement implements java.io.Serializable {
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
+
+	public Account getAccountOrigen() {
+		return accountOrigen;
+	}
+
+	public void setAccountOrigen(Account accountOrigen) {
+		this.accountOrigen = accountOrigen;
+	}
+
+	public Account getAccountDestino() {
+		return accountDestino;
+	}
+
+	public void setAccountDestino(Account accountDestino) {
+		this.accountDestino = accountDestino;
+	}
+
+
+	
 
 }

@@ -17,7 +17,8 @@ public class Account implements java.io.Serializable {
 	private Integer accountno;
 	private Emp emp;
 	private BigDecimal amount;
-	private Set accMovements = new HashSet(0);
+	private Set<AccMovement> accMovementsDest = new HashSet<AccMovement>(0);
+	private Set<AccMovement> accMovementsOrigen = new HashSet<AccMovement>(0);
 
 	public Account() {
 	}
@@ -27,10 +28,11 @@ public class Account implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	public Account(Emp emp, BigDecimal amount, Set accMovements) {
+	public Account(Emp emp, BigDecimal amount, Set<AccMovement> accMovementsDest,Set<AccMovement> accMovementsOrigin ) {
 		this.emp = emp;
 		this.amount = amount;
-		this.accMovements = accMovements;
+		this.accMovementsDest = accMovementsDest;
+		this.accMovementsOrigen = accMovementsOrigin;
 	}
 
 	public Integer getAccountno() {
@@ -57,12 +59,23 @@ public class Account implements java.io.Serializable {
 		this.amount = amount;
 	}
 
-	public Set getAccMovements() {
-		return this.accMovements;
+	public Set<AccMovement> getAccMovementsDest() {
+		return this.accMovementsDest;
 	}
 
-	public void setAccMovements(Set accMovements) {
-		this.accMovements = accMovements;
+
+
+	public Set<AccMovement> getAccMovementsOrigen() {
+		return accMovementsOrigen;
 	}
+
+	public void setAccMovementsOrigen(Set<AccMovement> accMovementsOrigen) {
+		this.accMovementsOrigen = accMovementsOrigen;
+	}
+
+	public void setAccMovementsDest(Set<AccMovement> accMovementsDest) {
+		this.accMovementsDest = accMovementsDest;
+	}
+	
 
 }

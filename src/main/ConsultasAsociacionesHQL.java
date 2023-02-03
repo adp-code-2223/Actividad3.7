@@ -74,7 +74,8 @@ public class ConsultasAsociacionesHQL {
 			}
 
 		}
-
+		
+				
 		session.close();
 		sessionFactory.close();
 	}
