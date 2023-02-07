@@ -75,7 +75,60 @@ public class ConsultasAsociacionesHQL {
 
 		}
 		
+		
+		
+		{
+
+			System.out.println("----------- Q5: El identificador de cada cuenta con el identificador del movimiento donde la cuenta es la cuenta origen -----------");
+			List<Object[]> cuentasIds = session
+					.createQuery("  select c.accountOrigen.accountno,"
+							+ " c.accountMovId from AccMovement c")
+					.list();
+
+			for (Object[] filas : cuentasIds) {
+				System.out.println("Id account: " + filas[0] + " Id mov: " + filas[1]);
+			}
+
+		}
+		
+
+		{
+
+			System.out.println("----------- Q6: El nº de movimientos por cada cuenta origen -----------");
+			List<Object[]> datos = session
+					.createQuery("select c.accountno, size(c.accMovementsOrigen) from Account c")
+					// Otra posibilidad: .createQuery("select c.accountno, count(o) from "
+					//+" Account c left join c.accMovementsOrigen o group by c.accountno")
+					
+					//La siguiente consulta no se corresponde con el enunciado porque las
+					//cuentas que no tienen movimientos no aparecen: 
+					//.createQuery("select c.accountOrigen.accountno, count(c.accountMovId) "
+//							+ "from AccMovement c group by c.accountOrigen.accountno")
 				
+					.list();
+
+			for (Object[] filas : datos) {
+				System.out.println("Id account: " + filas[0] + " Nº.mov: " + filas[1]);
+			}
+
+		}
+		
+			
+		
+		{
+
+			System.out.println("----------- Q7. El nombre de cada empleado con el de su jefe. Ha de aparecer el nombre del empleado aunque no tenga jefe\r\n"
+					+ "		 -----------");
+			List<Object[]> datos = session
+					.createQuery("select e.ename, j.ename from Emp e left join e.emp j ")
+					
+					.list();
+
+			for (Object[] filas : datos) {
+				System.out.println("Emp name: " + filas[0] + " Jefe name: " + filas[1]);
+			}
+
+		}
 		session.close();
 		sessionFactory.close();
 	}
